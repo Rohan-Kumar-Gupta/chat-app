@@ -51,6 +51,20 @@ function reducer(state, action) {
             : chat
         ),
       };
+    case "DELETE_MESSAGE":
+      return {
+        ...state,
+        chats: state.chats.map((chat) =>
+          chat.id === action.payload.chatId
+            ? {
+                ...chat,
+                messages: chat.messages.filter(
+                  (msg) => msg.id !== action.payload.messageId
+                ),
+              }
+            : chat
+        ),
+      };
     default:
       return state;
   }

@@ -12,10 +12,11 @@ export default function ChatItem({ chat }) {
 
   return (
     <div
-      className={`relative p-4 border-b border-gray-700 cursor-pointer hover:bg-gray-800 ${
+      className={`group relative p-4 border-b border-gray-700 cursor-pointer hover:bg-gray-800 ${
         state.selectedChatId === chat.id ? "bg-gray-800" : ""
       }`}
       onClick={() => dispatch({ type: "SELECT_CHAT", id: chat.id })}
+      onMouseLeave={() => setShowMenu(false)}
     >
       <div className="flex justify-between items-center">
         <div>
@@ -29,9 +30,9 @@ export default function ChatItem({ chat }) {
           <button
             onClick={(e) => {
               e.stopPropagation();
-              setShowMenu(!showMenu);
+              setShowMenu((prev) => !prev);
             }}
-            className="text-gray-400 hover:text-white px-2"
+            className=" hidden group-hover:block text-gray-400 hover:text-white px-2"
           >
             ⋮
           </button>
