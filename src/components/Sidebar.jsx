@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useChat } from "../context/ChatContext";
 import ChatItem from "./ChatItem";
+import { ACTION_TYPES, strings } from "../utils/constants";
 
 export default function Sidebar() {
   const { state, dispatch } = useChat();
@@ -17,18 +18,29 @@ export default function Sidebar() {
 
   const handleCreateChat = () => {
     if (!chatName.trim()) return;
-    dispatch({ type: "CREATE_CHAT", name: chatName });
+    dispatch({ type: ACTION_TYPES.CREATE_CHAT, name: chatName });
     setChatName("");
     setShowNewChatInput(false);
   };
 
+  const toggleNewChatInput = () => {
+    setShowNewChatInput((prev) => !prev);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleCreateChat();
+    }
+  };
+
   return (
     <div className="bg-gray-900 text-white w-1/4 h-screen flex flex-col">
-      <div className="p-4 border-b  border-gray-700">
+      <div className="p-4 border-b border-gray-700">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Chit - Chats</h1>
+          <h1 className="text-2xl font-bold">{strings.heading}</h1>
           <button
-            onClick={() => setShowNewChatInput(!showNewChatInput)}
+            onClick={toggleNewChatInput}
             className="flex items-center justify-center hover:bg-gray-800 h-14 w-14 rounded-full"
           >
             <img src="/newChat.png" alt="New Chat" className="h-8 w-8 " />
@@ -42,12 +54,7 @@ export default function Sidebar() {
               placeholder="Enter new chat name"
               value={chatName}
               onChange={(e) => setChatName(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  e.preventDefault();
-                  handleCreateChat();
-                }
-              }}
+              onKeyDown={(e) => handleKeyDown(e)}
             />
           </div>
         )}

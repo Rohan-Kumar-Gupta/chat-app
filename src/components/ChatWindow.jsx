@@ -2,12 +2,20 @@ import React, { useRef, useEffect } from "react";
 import { useChat } from "../context/ChatContext";
 import Message from "./Message";
 import MessageInput from "./MessageInput";
+import { strings } from "../utils/constants";
 
 export default function ChatWindow() {
   const { state, dispatch } = useChat();
   const chat = state.chats.find((c) => c.id === state.selectedChatId);
 
   const messagesEndRef = useRef(null);
+
+  const handleDeleteMessage = (id) => {
+    dispatch({
+      type: "DELETE_MESSAGE",
+      payload: { chatId: chat.id, messageId: id },
+    });
+  };
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -17,7 +25,9 @@ export default function ChatWindow() {
 
   if (!chat)
     return (
-      <div className="flex-1 bg-gray-800 text-white p-4">Select a chat</div>
+      <div className="flex-1 bg-gray-800 text-white p-4">
+        {strings.select_a_chat}
+      </div>
     );
 
   return (
@@ -28,12 +38,7 @@ export default function ChatWindow() {
           <Message
             key={msg.id}
             message={msg}
-            onDelete={(id) => {
-              dispatch({
-                type: "DELETE_MESSAGE",
-                payload: { chatId: chat.id, messageId: id },
-              });
-            }}
+            onDelete={(id) => handleDeleteMessage(id)}
           />
         ))}
         <div ref={messagesEndRef} />

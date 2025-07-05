@@ -1,15 +1,16 @@
 import React, { createContext, useReducer, useContext } from "react";
+import { ACTION_TYPES } from "../utils/constants";
 
 const ChatContext = createContext();
 
 const initialState = {
   chats: [],
-  selectedChatId: "1",
+  selectedChatId: "",
 };
 
 function reducer(state, action) {
   switch (action.type) {
-    case "CREATE_CHAT":
+    case ACTION_TYPES.CREATE_CHAT:
       const newChat = {
         id: Date.now().toString(),
         name: action.name,
@@ -21,7 +22,7 @@ function reducer(state, action) {
         chats: [newChat, ...state.chats],
         selectedChatId: newChat.id,
       };
-    case "DELETE_CHAT":
+    case ACTION_TYPES.DELETE_CHAT:
       const filtered = state.chats.filter((c) => c.id !== action.id);
       return {
         ...state,
@@ -29,9 +30,9 @@ function reducer(state, action) {
         selectedChatId:
           state.selectedChatId === action.id ? null : state.selectedChatId,
       };
-    case "SELECT_CHAT":
+    case ACTION_TYPES.SELECT_CHAT:
       return { ...state, selectedChatId: action.id };
-    case "SEND_MESSAGE":
+    case ACTION_TYPES.SEND_MESSAGE:
       return {
         ...state,
         chats: state.chats.map((chat) =>
@@ -51,7 +52,7 @@ function reducer(state, action) {
             : chat
         ),
       };
-    case "DELETE_MESSAGE":
+    case ACTION_TYPES.DELETE_MESSAGE:
       return {
         ...state,
         chats: state.chats.map((chat) =>

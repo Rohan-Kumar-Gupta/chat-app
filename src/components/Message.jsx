@@ -1,18 +1,17 @@
 import React, { useState } from "react";
+import { formatTime } from "../utils/functionUtils";
+import { strings } from "../utils/constants";
 
 export default function Message({ message, onDelete }) {
   const isYou = message.user === "You";
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMessageMenu, setShowMessageMenu] = useState(false);
 
-  const formatTime = (time) => {
-    if (!time) return "";
-    const date = new Date(time);
-    if (isNaN(date)) return "";
-    return date.toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    });
+  const toggleMessageMenu = () => {
+    setShowMessageMenu((prev) => !prev);
+  };
+  const handleDeleteMessage = () => {
+    onDelete(message.id);
+    setShowMessageMenu(false);
   };
 
   return (
@@ -20,7 +19,7 @@ export default function Message({ message, onDelete }) {
       className={`group relative flex ${
         isYou ? "justify-end" : "justify-start"
       } px-2`}
-      onMouseLeave={() => setShowMenu(false)}
+      onMouseLeave={() => setShowMessageMenu(false)}
     >
       <div
         className={`relative flex items-start justify-between px-3 py-2 m-1 rounded-lg max-w-md  ${
@@ -29,7 +28,6 @@ export default function Message({ message, onDelete }) {
             : "bg-gray-700 text-white rounded-bl-none"
         }`}
       >
-        {/* Message text & time */}
         <div className="flex-1">
           <div className="text-md whitespace-pre-wrap break-words">
             {message.text}
@@ -41,19 +39,19 @@ export default function Message({ message, onDelete }) {
 
         <div className="relative mx-1">
           <button
-            onClick={() => setShowMenu((prev) => !prev)}
+            onClick={toggleMessageMenu}
             className=" hidden absolute group-hover:block text-gray-300 hover:text-white"
           >
             ⋮
           </button>
 
-          {showMenu && (
+          {showMessageMenu && (
             <div className="absolute right-0 top-6 whitespace-nowrap bg-gray-900 text-white text-sm rounded shadow-lg z-10">
               <button
-                onClick={() => onDelete(message.id)}
+                onClick={handleDeleteMessage}
                 className="w-full flex text-left px-3 py-1  hover:bg-gray-700 rounded"
               >
-                Delete Message
+                {strings.delete_message}
               </button>
             </div>
           )}
