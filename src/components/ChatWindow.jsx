@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { useChat } from "../context/ChatContext";
 import Message from "./Message";
 import MessageInput from "./MessageInput";
-import { strings } from "../utils/constants";
+import { ACTION_TYPES, strings } from "../utils/constants";
 
 export default function ChatWindow() {
   const { state, dispatch } = useChat();
@@ -12,7 +12,7 @@ export default function ChatWindow() {
 
   const handleDeleteMessage = (id) => {
     dispatch({
-      type: "DELETE_MESSAGE",
+      type: ACTION_TYPES.DELETE_MESSAGE,
       payload: { chatId: chat.id, messageId: id },
     });
   };
@@ -32,7 +32,16 @@ export default function ChatWindow() {
 
   return (
     <div className="flex flex-col flex-1 h-screen bg-gray-800 text-white">
-      <div className="p-4 border-b border-gray-700 font-bold">{chat.name}</div>
+      <div className="flex items-center align-center border-b border-gray-700">
+        <div className="ml-4">
+          <img
+            src="/profileIcon.jpg"
+            alt="New Chat"
+            className="h-10 w-10 background-cover rounded-full "
+          />
+        </div>
+        <div className="p-4 font-bold">{chat.name}</div>
+      </div>
       <div className="flex-1 overflow-y-auto p-4 space-y-2">
         {chat.messages.map((msg) => (
           <Message

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useChat } from "../context/ChatContext";
 import { ACTION_TYPES, strings } from "../utils/constants";
+import { truncate } from "../utils/functionUtils";
 
 export default function ChatItem({ chat }) {
   const { state, dispatch } = useChat();
@@ -27,11 +28,20 @@ export default function ChatItem({ chat }) {
       onMouseLeave={() => setShowChatMenu(false)}
     >
       <div className="flex justify-between items-center">
-        <div>
-          <div className="font-semibold">{chat.name}</div>
-          <div className="text-gray-400 text-sm">
-            {chat.messages[chat.messages.length - 1]?.text ||
-              strings.no_messages_yet}
+        <div className="flex items-center">
+          <div className="mr-4">
+            <img
+              src="/profileIcon.jpg"
+              alt="New Chat"
+              className="h-10 w-10 background-cover rounded-full "
+            />
+          </div>
+          <div>
+            <div className="font-semibold">{chat.name}</div>
+            <div className="text-gray-400 text-sm">
+              {truncate(chat.messages[chat.messages.length - 1]?.text, 25) ||
+                strings.no_messages_yet}
+            </div>
           </div>
         </div>
 
