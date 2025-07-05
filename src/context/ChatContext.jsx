@@ -39,15 +39,7 @@ function reducer(state, action) {
           chat.id === state.selectedChatId
             ? {
                 ...chat,
-                messages: [
-                  ...chat.messages,
-                  {
-                    id: Date.now().toString(),
-                    user: "You",
-                    text: action.text,
-                    timestamp: new Date().toISOString(),
-                  },
-                ],
+                messages: [...chat.messages, action.message],
               }
             : chat
         ),

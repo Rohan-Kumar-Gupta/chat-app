@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { useChat } from "../context/ChatContext";
 import { ACTION_TYPES, strings } from "../utils/constants";
+import { getRandomDemoMessage } from "../data/demoMessage";
 
 export default function MessageInput() {
   const [text, setText] = useState("");
@@ -17,8 +18,27 @@ export default function MessageInput() {
 
   const handleSend = () => {
     if (!text.trim()) return;
-    dispatch({ type: ACTION_TYPES.SEND_MESSAGE, text });
+    dispatch({
+      type: ACTION_TYPES.SEND_MESSAGE,
+      message: {
+        id: Date.now().toString(),
+        user: "You",
+        text,
+        timestamp: new Date().toISOString(),
+      },
+    });
     setText("");
+    setTimeout(() => {
+      dispatch({
+        type: ACTION_TYPES.SEND_MESSAGE,
+        message: {
+          id: Date.now().toString() + "500",
+          user: state.name,
+          text: getRandomDemoMessage(),
+          timestamp: new Date().toISOString(),
+        },
+      });
+    }, 500);
   };
 
   const handleKeyDown = (e) => {

@@ -46,7 +46,7 @@ export default function Message({ message, onDelete }) {
           </button>
 
           {showMessageMenu && (
-            <div className="absolute right-0 top-6 whitespace-nowrap bg-gray-900 text-white text-sm rounded shadow-lg z-10">
+            <div className={`absolute right-0 top-6 whitespace-nowrap bg-gray-900 text-white text-sm rounded shadow-lg z-1000 ${!isYou && 'border'}`}>
               <button
                 onClick={handleDeleteMessage}
                 className="w-full flex text-left px-3 py-1  hover:bg-gray-700 rounded"
