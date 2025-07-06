@@ -5,6 +5,7 @@ export const strings = {
   select_a_chat: "Click on the green icon to initiate a conversation or add a new chat.",
   delete_message: "Delete Message",
   send: "Send",
+  copy_text: "Copy Text",
 };
 
 export const ACTION_TYPES = {
