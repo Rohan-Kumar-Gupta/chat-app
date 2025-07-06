@@ -8,7 +8,7 @@ A **basic chat UI application** built with **React and Tailwind CSS**, implement
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/your-username/chit-chats.git
+git clone https://github.com/Rohan-Kumar-Gupta/chat-app/tree/master
 cd chit-chats
 ```
 
