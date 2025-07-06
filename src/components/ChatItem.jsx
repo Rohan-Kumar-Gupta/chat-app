@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useChat } from "../context/ChatContext";
 import { ACTION_TYPES, strings } from "../utils/constants";
 import { truncate } from "../utils/functionUtils";
+import Avatar from "./Avataar";
 
 export default function ChatItem({ chat }) {
   const { state, dispatch } = useChat();
@@ -30,11 +31,7 @@ export default function ChatItem({ chat }) {
       <div className="flex justify-between items-center">
         <div className="flex items-center">
           <div className="mr-4">
-            <img
-              src="/profileIcon.jpg"
-              alt="New Chat"
-              className="h-10 w-10 background-cover rounded-full "
-            />
+            <Avatar name={chat.name} size={40} />
           </div>
           <div>
             <div className="font-semibold">{chat.name}</div>

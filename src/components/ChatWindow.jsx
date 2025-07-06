@@ -3,6 +3,7 @@ import { useChat } from "../context/ChatContext";
 import Message from "./Message";
 import MessageInput from "./MessageInput";
 import { ACTION_TYPES, strings } from "../utils/constants";
+import Avatar from "./Avataar";
 
 export default function ChatWindow() {
   const { state, dispatch } = useChat();
@@ -25,8 +26,19 @@ export default function ChatWindow() {
 
   if (!chat)
     return (
-      <div className="flex-1 bg-gray-800 text-white p-4">
-        {strings.select_a_chat}
+      <div className="flex flex-col w-3/4 h-full justify-center  align-center bg-gray-800 text-white p-4 text-md font-semibold">
+        <div className="flex items-center justify-center align-center ">
+          <img
+            src="/chitChatImage.png"
+            alt="New Chat"
+            height={260}
+            width={260}
+            className={"rounded-full"}
+          />
+        </div>
+        <div className="flex items-center justify-center align-center text-md">
+          {strings.select_a_chat}
+        </div>
       </div>
     );
 
@@ -34,11 +46,7 @@ export default function ChatWindow() {
     <div className="flex flex-col flex-1 h-screen bg-gray-800 text-white">
       <div className="flex items-center align-center border-b border-gray-700">
         <div className="ml-4">
-          <img
-            src="/profileIcon.jpg"
-            alt="New Chat"
-            className="h-10 w-10 background-cover rounded-full "
-          />
+          <Avatar name={chat.name} size={40} />
         </div>
         <div className="p-4 font-bold">{chat.name}</div>
       </div>

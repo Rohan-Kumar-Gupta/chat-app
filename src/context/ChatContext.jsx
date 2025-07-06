@@ -5,7 +5,7 @@ const ChatContext = createContext();
 
 const initialState = {
   chats: [],
-  selectedChatId: "",
+  selectedChatId: null,
 };
 
 function reducer(state, action) {
