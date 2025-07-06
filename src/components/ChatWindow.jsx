@@ -4,6 +4,7 @@ import Message from "./Message";
 import MessageInput from "./MessageInput";
 import { ACTION_TYPES, strings } from "../utils/constants";
 import Avatar from "./Avataar";
+import ChatWindowPlaceHolder from "./ChatWindowPlaceHolder";
 
 export default function ChatWindow() {
   const { state, dispatch } = useChat();
@@ -24,23 +25,7 @@ export default function ChatWindow() {
     }
   }, [chat?.messages]);
 
-  if (!chat)
-    return (
-      <div className="flex flex-col w-3/4 h-full justify-center  align-center bg-gray-800 text-white p-4 text-md font-semibold">
-        <div className="flex items-center justify-center align-center  ">
-          <img
-            src="/chitChatImage.png"
-            alt="New Chat"
-            height={300}
-            width={400}
-            className={"rounded-full h-[300]"}
-          />
-        </div>
-        <div className="flex items-center justify-center align-center text-md">
-          {strings.select_a_chat}
-        </div>
-      </div>
-    );
+  if (!chat) return <ChatWindowPlaceHolder />;
 
   return (
     <div className="flex flex-col flex-1 h-screen bg-gray-800 text-white">
