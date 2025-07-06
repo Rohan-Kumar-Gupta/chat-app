@@ -1,5 +1,5 @@
 export const strings = {
-  heading: "Chit - Chat",
+  heading: "Chit - chat",
   no_messages_yet: "No messages yet",
   delete_chat: "Delete Chat",
   select_a_chat: "Click on the green icon to initiate a conversation or add a new chat.",

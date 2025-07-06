@@ -27,13 +27,13 @@ export default function ChatWindow() {
   if (!chat)
     return (
       <div className="flex flex-col w-3/4 h-full justify-center  align-center bg-gray-800 text-white p-4 text-md font-semibold">
-        <div className="flex items-center justify-center align-center ">
+        <div className="flex items-center justify-center align-center  ">
           <img
             src="/chitChatImage.png"
             alt="New Chat"
-            height={260}
-            width={260}
-            className={"rounded-full"}
+            height={300}
+            width={400}
+            className={"rounded-full h-[300]"}
           />
         </div>
         <div className="flex items-center justify-center align-center text-md">
